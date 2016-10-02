@@ -270,15 +270,13 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\MathTask\AutoControlWork.cshtml" />
-    <Content Include="Views\MathTask\Create.cshtml" />
-    <Content Include="Views\MathTask\Details.cshtml" />
-    <Content Include="Views\MathTask\Index.cshtml" />
-    <Content Include="Views\MathTask\Message.cshtml" />
-    <Content Include="Views\MathTask\MyIndex.cshtml" />
-    <Content Include="Views\MathTask\MyStudentMathTasks.cshtml" />
-    <Content Include="Views\MathTask\_Details.cshtml" />
-    <Content Include="Views\MathTask\_Executor.cshtml" />
+    <Content Include="Views\Ship\Create.cshtml" />
+    <Content Include="Views\Ship\Details.cshtml" />
+    <Content Include="Views\Ship\Index.cshtml" />
+    <Content Include="Views\Ship\Message.cshtml" />
+    <Content Include="Views\Ship\MyIndex.cshtml" />
+    <Content Include="Views\Ship\MyStudentMathTasks.cshtml" />
+    <Content Include="Views\Ship\_Details.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />

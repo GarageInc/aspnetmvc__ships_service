@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ShipService.Models;
 using ShipsService.Models;
 using ShipsService.Services;
 
@@ -126,8 +125,18 @@ namespace ShipsService.Controllers
             }
             base.Dispose(disposing);
         }
-        
-        
-        
+
+
+
+        /// <summary>
+        /// Скачивание файла
+        /// </summary>
+        /// <returns></returns>
+        public FileResult Download(int documentId)
+        {
+            return docService.GetFileBy(documentId);
+        }
+
+
     }
 }

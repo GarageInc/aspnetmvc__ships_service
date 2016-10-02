@@ -1,16 +1,16 @@
-﻿@model IEnumerable<MathTask>
+﻿@model IEnumerable<ShipsService.Models.Ship>
 @using Microsoft.AspNet.Identity
-@using WebApplication.Models
+@using ShipsService.Models
 
 @{
-    ViewBag.Title = "Список всех задач";
+    ViewBag.Title = "Список всех кораблей";
 }
 <div class="modal fade" id="modDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div id="dialogContent" class="modal-dialog"></div>
 </div>
 
-<h2>Список всех задач, которые я должен решить</h2>
-<p>Всего задач: @(Model.Count<MathTask>())</p>
+<h2>Список кораблей</h2>
+<p>Всего: @(Model.Count<Ship>())</p>
 
 <br />
 <div id="toolbar">
@@ -47,27 +47,20 @@
                     @Html.DisplayNameFor(model => model.Id)
                 </th>
                 <th data-sortable="true">
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>
-                <th data-sortable="true">
-                    @Html.DisplayNameFor(model => model.Priority)
+                    @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Document)
-                </th>
-                <th data-field="deadline" data-sortable="true">
-                    @Html.DisplayNameFor(model => model.Deadline)
+                    @Html.DisplayNameFor(model => model.ShipsDocuments)
                 </th>
                 <th>
                     Детали
                 </th>
                 <th>
-                    Загрузка решений
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Author)
                 </th>
-                <th></th>
+                <th>
+                    Удалить?
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -77,69 +70,23 @@
                     <td></td>
                     <td><b>@item.Id</b></td>
                     <td>
-                        @if (item.Status == (int)MathTaskStatus.Open)
-                        {
-                            <span class="label label-success">Открыта</span>
-                        }
-                        else if (item.Status == (int)MathTaskStatus.Distributed)
-                        {
-                            <span class="label label-warning">Распределена</span>
-                        }
-                        else if (item.Status == (int)MathTaskStatus.Proccesing)
-                        {
-                            <span class="label label-important">На решении</span>
-                        }
-                        else if (item.Status == (int)MathTaskStatus.Closed)
-                        {
-                            <span class="label label-inverse">Закрыта</span>
-                        }
+                         @item.Name
                     </td>
                     <td>
-                        @if (item.Priority == (int)MathTaskPriority.Low)
-                        {
-                            <span class="badge badge-low">Низкий</span>
-                        }
-                        else if (item.Priority == (int)MathTaskPriority.Medium)
-                        {
-                            <span class="badge badge-medium">Средний</span>
-                        }
-                        else if (item.Priority == (int)MathTaskPriority.High)
-                        {
-                            <span class="badge badge-high">Высокий</span>
-                        }
-                        else if (item.Priority == (int)MathTaskPriority.Critical)
-                        {
-                            <span class="badge badge-critical">Критичный</span>
-                        }
+
+                        <a href=' @Url.Action("DocumentsByUser", "Documents", new { id = item.AuthorId}, null)'>
+                            <img src="../../Content/pictures/info.png" class="tdImage" title="Документы по кораблю" />
+                        </a>
+                       
                     </td>
                     <td>
-                        @if (item.Document != null)
-                        {
-                            <a href="/Document/DownloadRequestFile/@item.Document.Id"><img src="../../Content/pictures/filey.png" alt='@item.Document.Url' class="tdImage" title="Скачать файл" /></a>
-                        }
-                        else
-                        {
-                            <img src="../../Content/pictures/filen.png" alt="без файла изображения" class="tdImage" title="Файл не приложен" />
-                        }
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Deadline)
-                    </td>
-                    <td>
-                            <a class="compItem" href='@Url.Action("Details", "MathTask", new {id = item.Id}, null)'>
+                            <a class="compItem" href='@Url.Action("Details", "Ship", new {id = item.Id}, null)'>
                                 <img src="../../Content/pictures/info.png" class="tdImage" title="Детали задачи"/>
                             </a>
                     </td>
 
                     <td>
-                        <a  href='@Url.Action("Create", "MathTaskSolution", new {id = item.Id}, null)'>
-                            Загрузить решение
-                        </a>
-                            
-                    </td>
-
-                    <td>
-                        <a class="compItem" href='@Url.Action("Author", "MathTask", new {id = item.AuthorId}, null)'>
+                        <a class="compItem" href='@Url.Action("Author", "Ship", new {id = item.AuthorId}, null)'>
                             @item.Author.Name
                             <img src="../../Content/pictures/author.png" class="tdImage" title="Автор задачи" />
                         </a>

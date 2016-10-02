@@ -1,6 +1,6 @@
-﻿@using WebApplication.Service
+﻿@using ShipsService.Service
 @using Microsoft.AspNet.Identity
-@model WebApplication.Models.IndexViewModel
+@model ShipsService.Models.IndexViewModel
 
 @{
     ViewBag.Title = "Управление";
@@ -119,13 +119,7 @@
         </p>
     </dd>
     <hr/>
-    <dt>Карма(статус):</dt>
-    <dd>
-        <p>
-            @ApplicationUserDTO.GetUserKarma(userId)
-        </p>
-    </dd>
-    <hr/>
+
     <dt>О себе:</dt>
     <dd>
         <p>
@@ -151,31 +145,6 @@
     </dd>
     <hr/>
 
-    <dt>Контакты</dt>
-    <dd>
-        <table class="table">
-            <tr>
-                <th>
-                    Ссылка/номер/адрес
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model.Contacts)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ContactAdress)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Удалить", "Delete", "Contact", new {id = item.Id}, null)
-                    </td>
-                </tr>
-            }
-        </table>
-
-        @Html.Action("CreateContact")
-    </dd>
 
 </dl>
 </div>

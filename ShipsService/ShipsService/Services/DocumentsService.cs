@@ -1,4 +1,4 @@
-﻿using ShipService.Models;
+﻿using ShipsService.Models;
 using ShipsService.Models;
 using System;
 using System.Collections.Generic;
@@ -45,7 +45,7 @@ namespace ShipsService.Services
         {
             var reqDoc = db.Documents.Find(id);//.Document;
 
-            byte[] fileBytes = System.IO.File.ReadAllBytes(reqDoc.Url));
+            byte[] fileBytes = System.IO.File.ReadAllBytes(reqDoc.Url);
             string fileName = reqDoc.Id + "." + reqDoc.Type;
 
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);

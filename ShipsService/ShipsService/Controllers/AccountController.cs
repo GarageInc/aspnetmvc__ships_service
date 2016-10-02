@@ -18,7 +18,7 @@ namespace ShipsService.Controllers
     using System.Data.Entity;
     using System.Collections.Generic;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using ShipService.Models;
+    using ShipsService.Models;
     using Models;
     using Services;
 

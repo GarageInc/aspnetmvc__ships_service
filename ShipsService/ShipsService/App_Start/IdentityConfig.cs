@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using ShipsService.Models;
-using ShipService.Models;
+using ShipsService.Models;
 
 namespace ShipsService
 {

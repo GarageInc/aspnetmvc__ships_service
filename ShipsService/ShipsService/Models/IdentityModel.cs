@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ShipService.Models
+namespace ShipsService.Models
 {
     using System.Security.Claims;
     using System.Threading.Tasks;

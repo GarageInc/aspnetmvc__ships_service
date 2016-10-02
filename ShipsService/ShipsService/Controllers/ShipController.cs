@@ -11,7 +11,7 @@ namespace ShipsService.Controllers
     using System.Net;
     using System.Web;
     using System.Web.Mvc;
-    using ShipService.Models;
+    using ShipsService.Models;
     using Microsoft.AspNet.Identity;
     using System.Web.WebPages;
     using Models;
@@ -58,19 +58,21 @@ namespace ShipsService.Controllers
             return RedirectToAction("LogOff", "Account");
         }
 
-        protected void TryCreate(ApplicationUser user, Ship savingShip,  HttpPostedFileBase file)
+        protected void TryCreate(ApplicationUser user, Ship savingShip)
         {
             DateTime current = DateTime.Now;
 
+            /*
             if (file != null)
             {
-                Document doc = docService.SaveDocumentBy(user, file, current, Server.MapPath(DocumentsService.ShipsDirectory + "/" + user.Id));
+                //Document doc = docService.SaveDocumentBy(user, file, current, Server.MapPath(DocumentsService.ShipsDirectory + "/" + user.Id));
 
                 Db.Documents.Add(doc);
 
                 savingShip.ShipsDocuments.Add(doc);
                 user.ShipsDocuments.Add(doc);
             }
+            */
 
             // указываем автора задачи
             savingShip.Author = user;
@@ -92,20 +94,20 @@ namespace ShipsService.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Create(Ship ship, HttpPostedFileBase file)
+        public ActionResult Create(Ship ship)
         {
 
             // получаем текущего пользователя
             ApplicationUser user = Db.Users.FirstOrDefault(m => m.Id == currentUserId);
 
-            if (user == null)
+            if (currentUserId == null)
             {
                 return RedirectToAction("LogOff", "Account");
             }
 
             if (ModelState.IsValid)
             {
-                TryCreate(user, ship, file);
+                TryCreate(user, ship);
                 
                 return RedirectToAction("Index");
             }
@@ -125,19 +127,6 @@ namespace ShipsService.Controllers
 
             return View("Index");
         }
-        
-
-        
-
-        /// <summary>
-        /// Скачивание файла
-        /// </summary>
-        /// <returns></returns>
-        public FileResult Download( int documentId)
-        {
-            return docService.GetFileBy(documentId);
-        }
-        
 
         [Authorize]
         public ActionResult Author(string id)

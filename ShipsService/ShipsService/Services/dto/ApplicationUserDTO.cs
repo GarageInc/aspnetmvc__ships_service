@@ -1,7 +1,7 @@
-﻿namespace ShipService.Service
+﻿namespace ShipsService.Service
 {
     using System.Linq;
-    using ShipService.Models;
+    using ShipsService.Models;
     using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
 

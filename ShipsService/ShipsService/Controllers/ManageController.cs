@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using ShipService.Models;
+using ShipsService.Models;
 using ShipsService.Models;
 
 namespace ShipsService.Controllers

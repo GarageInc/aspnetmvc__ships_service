@@ -1,0 +1,55 @@
+﻿@model ShipsService.Models.Ship
+
+@{
+    ViewBag.Title = "Создать корабль";
+}
+
+<div style="margin: 20px">
+
+    @using (Html.BeginForm("Create", "Ship", FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+            <fieldset>
+                <legend>Новый корабль</legend>
+                
+                <div style="padding: 20px; margin: 10px;">
+                    <div >
+                        @Html.LabelFor(model => model.Name, new { })
+
+                        <div>
+                            @Html.EditorFor(model => model.Name, new { })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="padding: 20px; margin: 10px;">
+                    
+                    <div>
+                        @Html.LabelFor(model => model.Description, new {})
+
+                        <div>
+                            @Html.TextAreaFor(model => model.Description, 3, 100, new {htmlAttributes = new {}})
+                            @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+
+                </div>
+
+
+             </fieldset>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui");
+
+    <script>
+
+    </script>
+}

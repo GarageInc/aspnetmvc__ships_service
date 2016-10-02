@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace ShipService.Models
+namespace ShipsService.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

@@ -1,5 +1,4 @@
-﻿@using WebApplication.Models
-@model WebApplication.Models.RecallMessageList
+﻿@using ShipsService.Models
 
 @{
     ViewBag.Title = "Пользователь";
@@ -60,9 +59,6 @@ else
             </div>
         }
         <br/>
-        <div>
-            @Html.Partial("_TreeList", Model)
-        </div>
     </div>
 }
 

@@ -1,5 +1,5 @@
-﻿@using WebApplication.Models
-@using WebApplication.Service
+﻿@using ShipsService.Models
+@using ShipsService.Service
 
 @{
     ApplicationUser item = ViewData["User"] as ApplicationUser;
@@ -34,15 +34,7 @@
             </p>
         </dd>
         <br />
-
-        <dt>Карма(статус):</dt>
-        <dd>
-            <p>
-                @ApplicationUserDTO.GetUserKarma(item.Id)
-            </p>
-        </dd>
-        <br />
-
+        
         <dt>О себе:</dt>
         <dd>
             <p>
@@ -50,15 +42,7 @@
             </p>
         </dd>
         <br />
-
-        <dt>
-            @Html.DisplayNameFor(modelItem => item.LastVisition)
-        </dt>
-        <dd>
-            @Html.DisplayFor(modelItem => item.LastVisition)
-        </dd>
-        <br />
-
+        
         <dt>
             @Html.DisplayNameFor(modelItem => item.RegistrationDate)
         </dt>

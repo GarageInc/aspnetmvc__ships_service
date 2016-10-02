@@ -6,7 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace ShipService.Models
+namespace ShipsService.Models
 {
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

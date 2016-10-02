@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShipsService.Models
 {
-    using ShipService.Models;
+    using ShipsService.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -19,10 +19,7 @@ namespace ShipsService.Models
         
         [Display(Name = "Файлы")]
         public virtual ICollection<Document> ShipsDocuments { get; set; }
-
-        [Display(Name = "ID файла")]
-        public virtual int? DocumentId { get; set; }
-
+        
         [Display(Name = "ID Автора")]
         public virtual string AuthorId { get; set; }
 
