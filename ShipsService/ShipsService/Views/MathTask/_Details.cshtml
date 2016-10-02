@@ -1,0 +1,53 @@
+﻿@model WebApplication.Models.MathTask
+
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+        <h4>Детали</h4>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <p><b>Задача №  @Html.DisplayFor(m => m.Id)</b></p>
+            <p>Название: @Html.DisplayFor(m => m.Name)</p>
+            <p>Описание: @Html.DisplayFor(m => m.Description)</p>
+
+            @if (Model.MathTaskTypeId == 1) {
+
+            <p>Проверьте на однозначность кодирования. Ответ: либо 'ДА', либо 'НЕТ'(однозначно-не однозначно дешифруется заданная последовательность)</p>
+            }
+            else if (Model.MathTaskTypeId == 2) {
+
+            <p>Построить двоичный префиксный код с заданной последовательностью длин кодовых слов. Ответ: последовательность, разделенная пробелами как: \"111 011 001 000\"</p>
+            }
+            else if (Model.MathTaskTypeId == 3) {
+
+            <p>Проверьте на однозначность декодирования заданной последовательности данным кодом.  Ответ: либо 'ДА', либо 'НЕТ'(однозначно-не однозначно дешифруется заданная последовательность)</p>
+            }
+            else if (Model.MathTaskTypeId == 4) {
+
+            <p>Построить оптимальный код Хаффмана для заданной последовательности. Например, для кода \"12322\" Вы должны ввести в поле ответа: \"00 1 01 1 1\"</p>
+            } else if (Model.MathTaskTypeId == 5) {
+
+            <p>Найдите ошибку в приведенном коде Хемминга. Ответом напишите номер неверного бита по порядку</p>
+            } else if (Model.MathTaskTypeId == 6)
+            {
+
+                <p>Определите все свойства заданной функции(см файл)</p>
+            }
+
+            @if (Model.SelectedExecutorId != null)
+            {
+                <p>Исполнитель студент</p>
+            }
+            else
+            {
+                <p>Исполнителем является учебная группа</p>
+            }
+        </dl>
+    </div>
+    
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Закрыть</button>
+    </div>
+</div>

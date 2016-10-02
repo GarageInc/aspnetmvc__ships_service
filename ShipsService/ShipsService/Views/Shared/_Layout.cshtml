@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СДО Сервис</title>
+    @Styles.Render("~/Content/css/css")
+    @Styles.Render("~/Content/awesome")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" id="example-navbar-collapse">
+                        <span class="sr-only">Навигация</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("ГЛАВНАЯ", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
+                </div>
+                <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                @Html.ActionLink("Корабли", "Index", "Ship")
+                            </li>
+
+                            <li>
+                                @Html.ActionLink("Документы", "Index", "Document")
+                            </li>
+
+                            <li>
+                                @Html.ActionLink("Редактор", "Index", "Document")
+                            </li>
+                        }
+
+                        <li class="divider-vertical"></li>'
+                        
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Пользователи<b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Просмотр пользователей", "Index", "Account")</li>
+                                    <li>@Html.ActionLink("Создать пользователя", "Create", "Account")</li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Типы задач<b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Все корабли", "Index", "MathTaskTypes")</li>
+                                    <li>@Html.ActionLink("Все документы", "Create", "MathTaskTypes")</li>
+                                </ul>
+                            </li>    
+                        }
+                        
+                        <li class="nav-divider"></li>
+
+                        <li class="nav-divider"></li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container body-content" id="content">
+        <div class="row-fluid">
+            <br/>
+            @RenderBody()
+        </div>
+
+        <hr/>
+        <footer>
+            <nav role="navigation" class="navbar navbar-default navbar-fixed-bottom navbar-static-top">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://www.linkedin.com/in/alexey-priemkin-68303492">Автор Алексей Приемкин</a>
+                    </div>
+                    <!-- Collection of nav links and other content for toggling -->
+                    <div id="navbarCollapse" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            
+                            <li>
+                                @Html.Partial("_LoginPartial")
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <span class="label label-success">Задач</span>
+                                <span class="badge badge-warning">@Html.Action("GetCountOfAllShips", "Ship")</span>
+                                <span class="label label-success">Пользователей</span>
+                                <span class="badge badge-warning">@Html.Action("GetCountOfAllUsers", "Ship")</span>
+                                
+                            </li>
+                            <li>
+                                @DateTime.Now.Year – Все права защищены
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </footer>
+
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/helpdesk")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        // Используй Note.js для окошек
+    
+    </script>
+</body>
+</html>
