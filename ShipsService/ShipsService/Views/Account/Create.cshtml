@@ -40,20 +40,11 @@
         </div>
     </div>
 
-
     <div class="form-group">
-        @Html.LabelFor(model => model.StudentsGroupId, new { @class = "col-md-2 control-label" })
-
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.StudentsGroupId, ViewBag.StudentsGroups as SelectList, "Выберите группу, если это студент", new { @class = "form-control" })
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="buttonS" value="Добавить" />
         </div>
     </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="buttonS" value="Добавить" />
-            </div>
-        </div>
 }
 
 @section Scripts {

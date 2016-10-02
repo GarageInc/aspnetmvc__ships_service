@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ShipsService.Models;
-using ShipsService.Models;
+
 
 namespace ShipsService.Controllers
 {

@@ -14,6 +14,7 @@ namespace ShipsService.Controllers
 {
     public class DocumentController : Controller
     {
+        protected DocumentsService docService = new DocumentsService();
         protected ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Documents

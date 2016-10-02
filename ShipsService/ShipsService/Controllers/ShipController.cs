@@ -14,7 +14,6 @@ namespace ShipsService.Controllers
     using ShipsService.Models;
     using Microsoft.AspNet.Identity;
     using System.Web.WebPages;
-    using Models;
     using Services;
 
     public class ShipController : Controller

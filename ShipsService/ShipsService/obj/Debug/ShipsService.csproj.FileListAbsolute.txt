@@ -1,2 +1,1 @@
 D:\git_repos\ships_docs_service\ShipsService\ShipsService\obj\Debug\ShipsService.csprojResolveAssemblyReference.cache
-D:\git_repos\ships_service_aspnetmvc\ShipsService\ShipsService\obj\Debug\ShipsService.csprojResolveAssemblyReference.cache

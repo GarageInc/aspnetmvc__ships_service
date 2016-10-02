@@ -1,5 +1,4 @@
 ﻿using ShipsService.Models;
-using ShipsService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +47,7 @@ namespace ShipsService.Services
             byte[] fileBytes = System.IO.File.ReadAllBytes(reqDoc.Url);
             string fileName = reqDoc.Id + "." + reqDoc.Type;
 
-            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+            return System.IO.File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
     }
 }

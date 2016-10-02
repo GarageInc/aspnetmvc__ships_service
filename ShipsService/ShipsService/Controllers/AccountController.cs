@@ -606,7 +606,7 @@ namespace ShipsService.Controllers
         public ActionResult Create(RegisterViewModel model)
         {
             var user = new ApplicationUser {
-                UserName = model.Email, Name = model.Name, Password=model.Password, Email = model.Email,LastVisition=DateTime.Now, RegistrationDate = DateTime.Now, UserInfo="user",
+                UserName = model.Email, Name = model.Name, Password=model.Password, Email = model.Email, RegistrationDate = DateTime.Now, UserInfo="user",
                 BlockDate = DateTime.Now, IsBlocked = true,
                 BlockReason=""
             };

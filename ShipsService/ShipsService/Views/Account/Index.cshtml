@@ -40,9 +40,7 @@
         <thead>
         <tr>
             <th></th>
-            <th>
-                @Html.DisplayNameFor(model => model.StudentGroup)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -66,14 +64,9 @@
                     <h6>-</h6>
                 }
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Karma)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.RegistrationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastVisition)
             </th>
             <th>
                 Роль пользователя
@@ -86,16 +79,7 @@
         {
             <tr>
                 <td></td>
-                <td>
-                    @if (item.StudentGroup != null)
-                    {
-                        @Html.DisplayFor(modelItem => item.StudentGroup.Name) 
-                    }
-                    else
-                    {
-                        <span>-</span>
-                    }
-                </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -120,16 +104,11 @@
                         <h6>-</h6>
                     }
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Karma)
-                </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.RegistrationDate)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastVisition)
-                </td>
-
+                
                 <td>
                     @ApplicationUserDTO.GetUserRole(item.Id)
                 </td>

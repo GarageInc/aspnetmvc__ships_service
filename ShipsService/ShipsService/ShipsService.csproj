@@ -271,16 +271,12 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Ship\Create.cshtml" />
-    <Content Include="Views\Ship\Details.cshtml" />
     <Content Include="Views\Ship\Index.cshtml" />
     <Content Include="Views\Ship\Message.cshtml" />
-    <Content Include="Views\Ship\MyIndex.cshtml" />
-    <Content Include="Views\Ship\MyStudentMathTasks.cshtml" />
     <Content Include="Views\Ship\_Details.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\CreateContact.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
@@ -308,7 +304,6 @@
     <Content Include="Views\Account\UserDetails.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_TreeList.cshtml" />
     <Content Include="Views\Account\_UserDetails.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
