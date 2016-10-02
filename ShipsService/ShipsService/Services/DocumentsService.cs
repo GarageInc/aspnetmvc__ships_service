@@ -40,14 +40,5 @@ namespace ShipsService.Services
 
 
 
-        public FileResult GetFileBy(int id)
-        {
-            var reqDoc = db.Documents.Find(id);//.Document;
-
-            byte[] fileBytes = System.IO.File.ReadAllBytes(reqDoc.Url);
-            string fileName = reqDoc.Id + "." + reqDoc.Type;
-
-            return System.IO.File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
-        }
     }
 }

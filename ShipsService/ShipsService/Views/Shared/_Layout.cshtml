@@ -5,8 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>СДО Сервис</title>
-    @Styles.Render("~/Content/css/css")
-    @Styles.Render("~/Content/awesome")
+    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 
@@ -108,7 +107,7 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <span class="label label-success">Задач</span>
+                                <span class="label label-success">Кораблей</span>
                                 <span class="badge badge-warning">@Html.Action("GetCountOfAllShips", "Ship")</span>
                                 <span class="label label-success">Пользователей</span>
                                 <span class="badge badge-warning">@Html.Action("GetCountOfAllUsers", "Ship")</span>

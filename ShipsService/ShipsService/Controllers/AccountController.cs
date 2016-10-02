@@ -19,8 +19,8 @@ namespace ShipsService.Controllers
     using System.Collections.Generic;
     using Microsoft.AspNet.Identity.EntityFramework;
     using ShipsService.Models;
-    using Models;
     using Services;
+    using Models.Repo;
 
     [Authorize]
     public class AccountController : Controller
@@ -28,22 +28,24 @@ namespace ShipsService.Controllers
         protected ApplicationSignInManager _signInManager;
         protected ApplicationUserManager _userManager;
 
-        protected ApplicationDbContext db;
+        protected AppRepository repo;
+        
         protected DocumentsService docService;
 
-        public AccountController()
+        public AccountController(AppRepository repository)
         {
-            db = new ApplicationDbContext();
             docService = new DocumentsService();
+            repo = repository;
         }
+               
 
-        
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, AppRepository repository )
         {
             UserManager = userManager;
             SignInManager = signInManager;
-            db = new ApplicationDbContext();
+
+            docService = new DocumentsService();
+            repo = repository;
         }
 
         public ApplicationSignInManager SignInManager
@@ -101,11 +103,11 @@ namespace ShipsService.Controllers
                         if(this.User!=null)
                         {
                             var curId = this.User.Identity.GetUserId();
-                            var user = db.Users.Where(x => x.Id ==curId).FirstOrDefault();
+                            var user = repo.Context.Users.Where(x => x.Id ==curId).FirstOrDefault();
                             if (user != null)
                             {
-                                db.Entry(user).State = EntityState.Modified;
-                                db.SaveChanges();
+                                repo.Context.Entry(user).State = EntityState.Modified;
+                                repo.Context.SaveChanges();
                             }
                         }
                         
@@ -177,29 +179,6 @@ namespace ShipsService.Controllers
             return View();
         }
         
-        Random r = new Random();
-
-        void createUser(string name, string email, string password, string role)
-        {
-            var user = new ApplicationUser
-            {
-                UserName = email,
-                Name = name,
-                Password = password,
-                Email = email,
-                RegistrationDate = DateTime.Now,
-                UserInfo = "user",
-                BlockDate = DateTime.Now,
-                IsBlocked = true,
-                BlockReason = ""
-            };
-            
-            UserManager.Create(user, password);
-
-            UserManager.AddToRole(user.Id, role);
-            
-        }
-
         //
         // POST: /Account/Register
         [HttpPost]
@@ -209,11 +188,15 @@ namespace ShipsService.Controllers
         {
             if (ModelState.IsValid)
             {
-                //получаем время открытия
+                // получаем время открытия
                 DateTime current = DateTime.Now;
                 
                 var user = new ApplicationUser {
-                    UserName = model.Email, Name = model.Name, Password=model.Password, Email = model.Email, RegistrationDate = DateTime.Now, UserInfo="user",
+                    UserName = model.Email,
+                    Password =model.Password,
+                    Email = model.Email,
+                    RegistrationDate = DateTime.Now,
+                    UserInfo ="user",
                     BlockDate = DateTime.Now, IsBlocked = true,
                     BlockReason=""
                 };
@@ -221,7 +204,7 @@ namespace ShipsService.Controllers
                 var result = UserManager.Create(user, model.Password);
 
                 // Определим роль для первого пользователя по умолчанию
-                if (db.Users.Count() == 1)
+                if (repo.Context.Users.Count() <= 1)
                 {
                     UserManager.AddToRole(user.Id, "Administrator");
                 }
@@ -232,18 +215,19 @@ namespace ShipsService.Controllers
                 {
                     if(avatar!=null)
                     {
-                        var newUser = db.Users.First(x => x.Id == user.Id);
+                        var newUser = repo.Context.Users.First(x => x.Id == user.Id);
 
                         Document newAvatar = docService.SaveDocumentBy(newUser, avatar, current, Server.MapPath(DocumentsService.AvatarsDirectory + "/" + newUser.Id));
 
-                        db.Documents.Add(newAvatar);
+                        repo.Context.Documents.Add(newAvatar);
 
                         newUser.Avatar.Add(newAvatar);
 
-                        db.Entry(newUser).State = EntityState.Modified;
+                        repo.Context.Entry(newUser).State = EntityState.Modified;
 
-                        db.SaveChanges();
+                        repo.Context.SaveChanges();
                     }
+
                     SignInManager.SignIn(user, isPersistent:false, rememberBrowser:false);
                     
                     // Дополнительные сведения о том, как включить подтверждение учетной записи и сброс пароля, см. по адресу: http://go.microsoft.com/fwlink/?LinkID=320771
@@ -578,7 +562,7 @@ namespace ShipsService.Controllers
         {
             //var result = Membership.FindUsersByEmail(Email).Count == 0;
 
-            var result = db.Users.Count(x => x.Email==Email) == 0;
+            var result = repo.Context.Users.Count(x => x.Email==Email) == 0;
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -591,7 +575,7 @@ namespace ShipsService.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
-            SelectList roles = new SelectList(db.Roles, "Id", "Name");
+            SelectList roles = new SelectList(repo.Context.Roles, "Id", "Name");
             ViewBag.Roles = roles;
             
             return View();
@@ -606,29 +590,33 @@ namespace ShipsService.Controllers
         public ActionResult Create(RegisterViewModel model)
         {
             var user = new ApplicationUser {
-                UserName = model.Email, Name = model.Name, Password=model.Password, Email = model.Email, RegistrationDate = DateTime.Now, UserInfo="user",
+                UserName = model.Email,
+                Password = model.Password,
+                Email = model.Email,
+                RegistrationDate = DateTime.Now,
+                UserInfo ="user",
                 BlockDate = DateTime.Now, IsBlocked = true,
                 BlockReason=""
             };
 
-            var role = db.Roles.First(x => x.Id == model.RoleId);
+            var role = repo.Context.Roles.First(x => x.Id == model.RoleId);
 
             UserManager.Create(user, model.Password);
             
             // и добавим его к роли
             UserManager.AddToRole(user.Id, role.Name);
 
-            db.SaveChanges();
+            repo.Context.SaveChanges();
             
 
-            var users = db.Users.ToList();
+            var users = repo.Context.Users.ToList();
             return View("Index", users);
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            var users = db.Users.ToList();
+            var users = repo.Context.Users.ToList();
             return View(users);
         }
 
@@ -636,12 +624,11 @@ namespace ShipsService.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Edit(string id)
         {
-            ApplicationUser user = db.Users.Find(id);
-            SelectList roles = new SelectList(db.Roles, "Id", "Name");
+            ApplicationUser user = repo.Context.Users.Find(id);
+            SelectList roles = new SelectList(repo.Context.Roles, "Id", "Name");
             ViewBag.Roles = roles;
 
             EditViewModel regWm = new EditViewModel();
-            regWm.Name = user.Name;
             regWm.Password = user.Password;
             regWm.Email = user.Email;
             regWm.Id = user.Id;
@@ -655,11 +642,10 @@ namespace ShipsService.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userCurrent = db.Users.Find(user.Id);
+                var userCurrent = repo.Context.Users.Find(user.Id);
 
                 string pass = user.Password;
 
-                userCurrent.Name = user.Name;
                 userCurrent.UserName = user.Email;
                 userCurrent.Email = user.Email;
                 userCurrent.Password = user.Password;
@@ -673,18 +659,18 @@ namespace ShipsService.Controllers
                 userCurrent.Roles.Clear();
                 
                 // Добавим новую роль
-                var newRole = db.Roles.First(x => x.Id == user.RoleId).Name;
+                var newRole = repo.Context.Roles.First(x => x.Id == user.RoleId).Name;
                 var result = UserManager.AddToRole(user.Id, newRole);
 
                 // Сохраним изменения
-                db.Entry(userCurrent).State = EntityState.Modified;
+                repo.Context.Entry(userCurrent).State = EntityState.Modified;
 
-                db.SaveChanges();
+                repo.Context.SaveChanges();
 
                 return RedirectToAction("Index");
             }
             
-            SelectList roles = new SelectList(db.Roles, "Id", "Name");
+            SelectList roles = new SelectList(repo.Context.Roles, "Id", "Name");
             ViewBag.Roles = roles;
 
             return View(user);
@@ -693,9 +679,9 @@ namespace ShipsService.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Delete(string id)
         {
-            ApplicationUser user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
+            ApplicationUser user = repo.Context.Users.Find(id);
+            repo.Context.Users.Remove(user);
+            repo.Context.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -705,7 +691,7 @@ namespace ShipsService.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser user = db.Users.Where(x=>x.Id==id).FirstOrDefault();
+            ApplicationUser user = repo.Context.Users.Where(x=>x.Id==id).FirstOrDefault();
             if (user == null)
             {
                 return HttpNotFound();
@@ -717,13 +703,9 @@ namespace ShipsService.Controllers
         // ПОДРОБНОСТИ О ПОЛЬЗОВАТЕЛЕ
         public ActionResult UserDetails(string userId)
         {
-            var user = db.Users.Find(userId);
-
-            using (db)
-            {
-                return View();
-            }
-
+            var user = repo.Context.Users.Find(userId);
+            
+            return View(user);
         }
         
     }

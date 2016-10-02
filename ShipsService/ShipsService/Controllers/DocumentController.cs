@@ -135,9 +135,18 @@ namespace ShipsService.Controllers
         /// <returns></returns>
         public FileResult Download(int documentId)
         {
-            return docService.GetFileBy(documentId);
+            return GetFileBy(documentId);
         }
 
+        public FileResult GetFileBy(int id)
+        {
+            var reqDoc = db.Documents.Find(id);//.Document;
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(reqDoc.Url);
+            string fileName = reqDoc.Id + "." + reqDoc.Type;
+
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        }
 
     }
 }

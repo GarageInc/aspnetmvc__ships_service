@@ -3,7 +3,7 @@ namespace ShipsService.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Document : BaseModel
     {
@@ -24,6 +24,13 @@ namespace ShipsService.Models
 
         [Display(Name = "Статус")]
         public int Status { get; set; }
+        
+        [Display(Name = "ID Автора")]
+        public virtual string AuthorId { get; set; }
+
+        [Display(Name = "Автор")]
+        [ForeignKey("AuthorId")]
+        public virtual ApplicationUser Author { get; set; }
     }
 
 

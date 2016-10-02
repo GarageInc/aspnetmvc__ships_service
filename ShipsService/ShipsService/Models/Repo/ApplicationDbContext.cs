@@ -16,13 +16,10 @@ namespace ShipsService.Models
         {
 
         }
-        //public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        public DbSet<Ship> Ships { get; set; }
-        //public DbSet<ErrorMessage> ErrorMessages { get; set; }
 
+        public DbSet<Ship> Ships { get; set; }
         public DbSet<Document> Documents { get; set; }
         
-
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
@@ -34,11 +31,9 @@ namespace ShipsService.Models
 
             modelBuilder.Entity<ApplicationUser>().HasMany(c => c.ShipsDocuments);
             modelBuilder.Entity<ApplicationUser>().HasMany(c => c.Avatar);
-            
-            modelBuilder.Entity<Ship>().HasMany(c => c.ShipsDocuments);
+            modelBuilder.Entity<ApplicationUser>().HasMany(c => c.Ships);
 
-            // modelBuilder.Entity<MathTask>().HasMany(c => c.Documents);
-            // modelBuilder.Entity<MathTaskSolution>().HasMany(c => c.Documents);
+            modelBuilder.Entity<Ship>().HasMany(c => c.ShipsDocuments);            
         }
     }
 }

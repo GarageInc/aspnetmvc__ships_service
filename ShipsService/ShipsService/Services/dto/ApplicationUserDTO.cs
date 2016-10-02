@@ -13,7 +13,7 @@
         {
             var res = db.Users.FirstOrDefault(x => x.Id == id);
 
-            return res==null ? "undefined" : res.Name;
+            return res==null ? "undefined" : res.UserName;
         }
 
         [Display(Name = "Роль пользователя:")]

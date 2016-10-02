@@ -16,10 +16,6 @@ namespace ShipsService.Models
     public class ApplicationUser : IdentityUser
     {
         [Required]
-        [Display(Name = "Имя")]
-        public string Name { get; set; }
-
-        [Required]
         [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
@@ -30,6 +26,9 @@ namespace ShipsService.Models
 
         [Display(Name = "Документы")]
         public virtual ICollection<Document> ShipsDocuments { get; set; }
+        
+        [Display(Name = "Корабли")]
+        public virtual ICollection<Ship> Ships { get; set; }
 
         [Display(Name = "Дата регистрации")]
         public virtual DateTime RegistrationDate { get; set; }

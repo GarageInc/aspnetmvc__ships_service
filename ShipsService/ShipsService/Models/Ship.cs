@@ -24,6 +24,7 @@ namespace ShipsService.Models
         public virtual string AuthorId { get; set; }
 
         [Display(Name = "Автор")]
+        [ForeignKey("AuthorId")]
         public virtual ApplicationUser Author { get; set; }
              
     }
